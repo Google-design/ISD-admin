@@ -1,0 +1,7 @@
+{
+  "name": "DentonAdmin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
