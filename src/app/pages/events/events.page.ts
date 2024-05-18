@@ -33,6 +33,10 @@ export class EventsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadEvents();
+  }
+
+  loadEvents(){
     this.notification$.subscribe(async notificationsArray => {
       for (const nt of notificationsArray){
         this.loadURL$ = this.getNotificationImageUrl(nt.imgpath);
@@ -81,6 +85,13 @@ export class EventsPage implements OnInit {
       component: AddEventPage
     });
     modal.present();
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.loadEvents();
+      event.target.complete();
+    }, 1000);
   }
 
 }
