@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button fill="clear" slot="start" (click)="close()">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Events</ion-title>
+    <ion-button fill="clear" slot="end" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item *ngFor="let nt of notification$ | async">
+    <ion-card>
+        <img *ngIf="(nt.imgpath && (loadURL$ | async))" alt="Notification Image" [src]="(loadURL$ | async) " />
+
+        <ion-card-header>
+          <ion-card-title>{{nt.header}}</ion-card-title>
+        </ion-card-header>
+  
+        <ion-card-content>
+          {{nt.description}}
+          <br>
+          <a  [href]="nt.link">{{nt.link}}</a>
+          <br>
+          <ion-text>{{nt.date}}</ion-text>
+          <ion-text style="float: right;">{{nt.time}}</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="openEventAdd()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+</ion-content>

@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button fill="clear" slot="start" (click)="close()">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Prayer Times</ion-title>
+    <ion-button fill="clear" slot="end" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="image-container">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Loading"
+        refreshingSpinner="crescent"
+        refreshingText="Refreshing..."
+      >
+      </ion-refresher-content>
+    </ion-refresher>
+    <img alt="Background Picture for Prayer times" [src]="'../../../assets/times-day.jpg'">
+  </div>
+
+  <div class="transparent-container">
+    <ion-grid class="ion-no-padding" *ngIf="!isEditing">
+      <ion-row>
+        <ion-col size="5"></ion-col>
+        <ion-col size="7" class="time bold">Iqama</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Fajr</ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.fajr}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Zuhr</ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.duhr}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Asr</ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.asr}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Maghrib</ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.maghrib}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Isha</ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.isha}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Jummah<ion-text class="small_jummah"> (ISD)</ion-text></ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.jummah}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Jummah<ion-text class="small_jummah"> (MSA)</ion-text></ion-col>
+        <ion-col size="7" class="time">{{IqamaTimes.jummahUNT}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="time">
+          <ion-button fill="solid" expand="full" (click)="editTimings()">Edit</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ion-no-padding" *ngIf="isEditing">
+      <ion-row>
+        <ion-col size="5"></ion-col>
+        <ion-col size="7" class="time bold">Iqama</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Fajr</ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.fajr"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Zuhr</ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.duhr"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Asr</ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.asr"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Maghrib</ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.maghrib"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Isha</ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.isha"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Jummah<ion-text class="small_jummah"> (ISD)</ion-text></ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.jummah"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" class="bold">Jummah<ion-text class="small_jummah"> (MSA)</ion-text></ion-col>
+        <ion-col size="7" class="time">
+          <ion-input [(ngModel)]="IqamaTimes.jummahUNT"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="time">
+          <ion-button fill="solid" expand="full" (click)="cancelEditing()" color="danger">Cancel</ion-button>
+        </ion-col>
+        <ion-col size="6" class="time">
+          <ion-button fill="solid" expand="full" (click)="sureSave()" color="success">Save</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
