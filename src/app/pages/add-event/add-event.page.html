@@ -10,34 +10,48 @@
 <ion-content [fullscreen]="true">
   <form (ngSubmit)="sureAdd()" [formGroup]="eventForm">
     <ion-item>
-      <ion-label position="stacked">Title (for reference)</ion-label>
+      <ion-label position="floating">Title (for reference)</ion-label>
       <ion-input formControlName="title" name="title" placeholder="Document name in Firebase" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Header</ion-label>
-      <ion-input formControlName="header" name="header" required></ion-input>
+      <ion-input formControlName="header" placeholder="Header for event" name="header" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Description</ion-label>
-      <ion-textarea formControlName="description" name="description" required></ion-textarea>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Image Path</ion-label>
-      <ion-input formControlName="imgpath" placeholder="Leave empty if no image" name="imgpath"></ion-input>
+      <ion-textarea formControlName="description" placeholder="Description of event" name="description" required></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Date</ion-label>
-      <ion-input formControlName="date" name="date" required></ion-input>
+      <ion-input formControlName="date" name="date"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Time</ion-label>
-      <ion-input formControlName="time" name="time" required></ion-input>
+      <ion-input formControlName="time" name="time"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Link</ion-label>
+      <ion-input formControlName="link" name="link"></ion-input>
+    </ion-item>
+<!-- 
+    <ion-item>
+      <ion-label position="floating">Image Path</ion-label>
+      <ion-input formControlName="imgpath" placeholder="Leave empty if no image" name="imgpath"></ion-input>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label position="fixed">Upload Image</ion-label>
+      <input type="file" class="upload-image" accept="image/*" #fileInput>
+      <ion-button slot="end" fill="clear" (click)="onFileSelected(fileInput)">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+    </ion-item>
+    
 
     <ion-row>
       <ion-col size="6">

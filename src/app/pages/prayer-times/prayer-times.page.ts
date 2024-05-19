@@ -98,6 +98,7 @@ export class PrayerTimesPage implements OnInit {
           role: 'cancel',
           handler: () => {
             this.cancelEditing();
+            this.loadTimings();
           },
         },
         {

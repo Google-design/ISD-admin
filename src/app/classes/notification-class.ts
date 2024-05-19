@@ -5,6 +5,7 @@ export class NotificationClass implements Notification{
     imgpath: string = "";
     time: string = "";
     link: string = "";
+    id?: string;
 }
 
 export interface Notification{
@@ -13,5 +14,6 @@ export interface Notification{
     header: string,
     imgpath: string,
     time: string,
-    link: string
+    link: string,
+    id?: string,
 }

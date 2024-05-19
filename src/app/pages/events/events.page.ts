@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
-import { Firestore, collectionData } from '@angular/fire/firestore';
+import { Firestore, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Observable  } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -16,8 +16,7 @@ import { AddEventPage } from '../add-event/add-event.page';
 })
 export class EventsPage implements OnInit {
   notification$: Observable<NotificationClass[]>
-  imageTitle: string;
-  loadURL$: Promise<string | null>;
+  imageUrls: { [header: string]: string | null } = {}; // Store image URLs by notification header
 
 
 
@@ -27,9 +26,11 @@ export class EventsPage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private toastController: ToastController,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
     private storage: AngularFireStorage
   ) {
-    this.notification$ = collectionData(collection(this.firestore, 'notifications')) as Observable<NotificationClass[]>;
+    this.notification$ = collectionData(collection(this.firestore, 'notifications'), { idField: 'id' }) as Observable<NotificationClass[]>;
   }
 
   ngOnInit() {
@@ -39,8 +40,8 @@ export class EventsPage implements OnInit {
   loadEvents(){
     this.notification$.subscribe(async notificationsArray => {
       for (const nt of notificationsArray){
-        this.loadURL$ = this.getNotificationImageUrl(nt.imgpath);
-        this.imageTitle = nt.header;
+        const imageUrl = await this.getNotificationImageUrl(nt.imgpath);
+        this.imageUrls[nt.header] = imageUrl; // Store the URL with the header as key
       }
     });
   }
@@ -56,15 +57,16 @@ export class EventsPage implements OnInit {
       return downloadURL;
     } catch (error) {
       console.error('Error getting image download URL:', error);
-      this.presentToast('Error loading image');
+      this.presentToast('Error loading image', 'danger');
       return null;
     }
   }
 
-  async presentToast(message: string) {
+  async presentToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 2000,
+      color: color
     });
     toast.present();
   }
@@ -92,6 +94,38 @@ export class EventsPage implements OnInit {
       this.loadEvents();
       event.target.complete();
     }, 1000);
+  }
+
+  async deleteDocument(documentId: string | undefined) {
+    if(documentId){
+      const alert = await this.alertController.create({
+        header: 'Confirm Delete',
+        message: 'Are you sure you want to delete this event?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+          },
+          {
+            text: 'Delete',
+            handler: async () => {
+              const loading = this.loadingController.create();
+              (await loading).present();
+              try {
+                const eventDocRef = doc(this.firestore, `notifications/${documentId}`);
+                await deleteDoc(eventDocRef);
+                this.presentToast('Event deleted successfully.', 'success');
+              } catch (error) {
+                console.error('Error deleting document:', error);
+                this.presentToast('Error deleting event.', 'danger');
+              }
+              (await loading).dismiss();
+            },
+          },
+        ],
+      });
+      await alert.present();
+    }
   }
 
 }
