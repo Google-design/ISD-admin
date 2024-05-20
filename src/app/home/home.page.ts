@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PrayerTimesPage } from '../pages/prayer-times/prayer-times.page';
 import { EventsPage } from '../pages/events/events.page';
+import { StorageEditPage } from '../pages/storage-edit/storage-edit.page';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +37,13 @@ export class HomePage {
     await this.authService.logout();
     this.router.navigateByUrl('/', {replaceUrl: true});
     this.modalController.dismiss();
+  }
+
+  async openStorageEdit() {
+    const modal = await this.modalController.create({
+      component: StorageEditPage
+    });
+    modal.present();
   }
 
 }

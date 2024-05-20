@@ -1,8 +1,13 @@
 ion-input, ion-textarea {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 4%;
 }
 
 .upload-image{
     margin-top: 20%;
 }
+
+.required-asterisk {
+    color: red;
+    margin-left: 2px;
+  }

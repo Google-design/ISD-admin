@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button fill="clear" slot="start" (click)="close()">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Edit Cloud Storage</ion-title>
+    <ion-button fill="clear" slot="end" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let file of files">
+      <ion-label>{{ file.name }}</ion-label>
+      <ion-button fill="clear" color="danger" (click)="sureDelete(file)">Delete</ion-button>
+    </ion-item>
+  </ion-list>
+    <ion-item>
+      <ion-label position="fixed" class="Upload-label">Upload Image</ion-label>
+      <input type="file" class="upload-image" accept="image/*" #fileInput>
+      <ion-button slot="end" fill="clear" (click)="sureUpload(fileInput)">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+    </ion-item>
+    
+</ion-content>

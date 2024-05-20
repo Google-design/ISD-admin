@@ -92,7 +92,30 @@ export class AddEventPage implements OnInit {
     await loading.dismiss();
   }
 
-  onFileSelected(fileInput: HTMLInputElement) {
+  async sureUpload(fileInput: HTMLInputElement) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure?',
+      message: `Do you want to upload the image?`,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel'
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.onFileSelected(fileInput);
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async onFileSelected(fileInput: HTMLInputElement) {
+    const loading = await this.loadingController.create();
+    loading.present();
+
     const file: File | null = fileInput.files ? fileInput.files[0] : null;
     if (file) {
       const filePath = `${file.name}`;
@@ -115,6 +138,7 @@ export class AddEventPage implements OnInit {
     } else {
       this.showMessage('No file selected. Please select a file to upload.', 'danger');
     }
+    loading.dismiss();
   }
 
   async showMessage(message: string, color: string) {

@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button fill="clear" slot="start" (click)="logout()">
+    <ion-title>Home</ion-title>
+    <ion-button fill="clear" slot="end" (click)="logout()">
       <ion-icon slot="icon-only" name="log-out"></ion-icon>
     </ion-button>
-    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,27 +12,39 @@
   <!-- Doesnt Route to the pages -->
 
   <ion-card (click)="openPrayerTimes()">
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <img alt="Finding the prayer times" src="../../assets/prayer.jpeg" />
     <ion-card-header>
       <ion-card-title>Prayer Times</ion-card-title>
       <ion-card-subtitle>Edit Iqama Timings</ion-card-subtitle>
     </ion-card-header>
   
-    <ion-card-content>
+    <!-- <ion-card-content>
       Here's a small text description for the card content. Nothing more, nothing less.
-    </ion-card-content>
+    </ion-card-content> -->
   </ion-card>
 
   <ion-card (click)="openEvents()">
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <img alt="Calendar with event scheduled" src="../../assets/events.jpeg" />
     <ion-card-header>
       <ion-card-title>Notifications</ion-card-title>
       <ion-card-subtitle>Edit the notification events</ion-card-subtitle>
     </ion-card-header>
   
-    <ion-card-content>
+    <!-- <ion-card-content>
       Here's a small text description for the card content. Nothing more, nothing less.
-    </ion-card-content>
+    </ion-card-content> -->
+  </ion-card>
+
+  <ion-card (click)="openStorageEdit()">
+    <img alt="Firebase Cloud Storagez" src="../../assets/storage.jpeg" />
+    <ion-card-header>
+      <ion-card-title>Storage</ion-card-title>
+      <ion-card-subtitle>Edit the cloud firebase storage</ion-card-subtitle>
+    </ion-card-header>
+  
+    <!-- <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content> -->
   </ion-card>
   
 </ion-content>

@@ -25,6 +25,10 @@ const routes: Routes = [
     path: 'add-event',
     loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
   },
+  {
+    path: 'storage-edit',
+    loadChildren: () => import('./pages/storage-edit/storage-edit.module').then( m => m.StorageEditPageModule)
+  },
 ];
 
 @NgModule({
