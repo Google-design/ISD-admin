@@ -17,6 +17,8 @@
       <ion-note slot="error" *ngIf="(password?.dirty || password?.touched) && password?.errors">Password needs to be 6 characters</ion-note>
     </ion-item>
 
+    <a (click)="forgotPassword()">Forgot Password</a>
+
     <ion-button expand="full" type="submit" [disabled]="!credentials.valid">Login</ion-button>
   </form>
 </ion-content>

@@ -11,34 +11,38 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <div>
+    <ion-refresher slot="fixed" [pullMin]="100" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content
       pullingIcon="chevron-down-circle-outline"
       refreshingSpinner="crescent"
-    >
+      pullingText="اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى سَيِّدِنَا مُحَمَّدٍ"
+      >
     </ion-refresher-content>
-  </ion-refresher>
-  <ion-item *ngFor="let nt of (notification$ | async)">
-    <ion-card>
-        <img *ngIf="(nt.imgpath && imageUrls[nt.header])" alt="Notification Image" [src]="imageUrls[nt.header]" />
+    </ion-refresher>
+    <ion-item *ngFor="let nt of (notification$ | async)">
+      <ion-card>
+          <img *ngIf="(nt.imgpath && imageUrls[nt.header])" alt="Notification Image" [src]="imageUrls[nt.header]" />
 
-        <ion-card-header>
-          <ion-card-title>{{nt.header}}</ion-card-title>
-        </ion-card-header>
-  
-        <ion-card-content>
-          {{nt.description}}
-          <ion-button (click)="deleteDocument(nt.id)" style="float: right;" slot="end" color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-button>
-          <br>
-          <a [href]="nt.link">{{nt.link}}</a>
-          <br>
-          <ion-text>{{nt.date}}</ion-text>
-          <ion-text style="float: right;">{{nt.time}}</ion-text>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
+          <ion-card-header>
+            <ion-card-title>{{nt.header}}</ion-card-title>
+          </ion-card-header>
+    
+          <ion-card-content>
+            {{nt.description}}
+            <ion-button (click)="deleteDocument(nt.id)" style="float: right;" slot="end" color="danger">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+            <br>
+            <a [href]="nt.link">{{nt.link}}</a>
+            <br>
+            <ion-text>{{nt.date}}</ion-text>
+            <ion-text style="float: right;">{{nt.time}}</ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+  </div>
+
 
       <ion-fab slot="fixed" vertical="bottom" horizontal="center">
         <ion-fab-button (click)="openEventAdd()">

@@ -67,4 +67,20 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+
+  forgotPassword() {
+    const email = this.credentials.value.email;
+    if(email){
+      this.authService.sendPasswordResetEmail(email)
+        .then(() => {
+          this.showAlert('Password Reset', 'A password reset email has been sent to your email address.');
+        })
+        .catch((error: any) => {
+          this.showAlert('Error', 'Failed to send password reset email. Please try again later.');
+          console.error('Error sending password reset email:', error);
+        });
+    } else {
+      this.showAlert("Error", "Please provide the email");
+    }
+  }
 }
