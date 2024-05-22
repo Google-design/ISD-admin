@@ -66,7 +66,13 @@ export class EventsPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000,
-      color: color
+      color: color,
+      buttons: [
+        {
+          text: 'X',
+          role: 'cancel',
+        }
+      ]
     });
     toast.present();
   }

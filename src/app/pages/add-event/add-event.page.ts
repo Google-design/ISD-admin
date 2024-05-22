@@ -146,7 +146,13 @@ export class AddEventPage implements OnInit {
       message: message,
       duration: 2000,
       position: 'bottom',
-      color: color
+      color: color,
+      buttons: [
+        {
+          text: 'X',
+          role: 'cancel',
+        }
+      ]
     });
     await toast.present();
   }

@@ -23,11 +23,11 @@ export class LoginPage implements OnInit {
   ) { }
 
   get email() {
-    return this.credentials.get('email');
+    return this.credentials.get('email')!;
   }
 
   get password() {
-    return this.credentials.get('password');
+    return this.credentials.get('password')!;
   }
 
   ngOnInit() {
@@ -68,7 +68,29 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  forgotPassword() {
+  async sureForgot() {
+    const alert = await this.alertController.create({
+      header: 'Send Reset Password Email',
+      message: `Do you want to reset the password for the email provided?`,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel'
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.forgotPassword();
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async forgotPassword() {
+    const loading = this.loadingController.create();
+    (await loading).present();
     const email = this.credentials.value.email;
     if(email){
       this.authService.sendPasswordResetEmail(email)
@@ -82,5 +104,6 @@ export class LoginPage implements OnInit {
     } else {
       this.showAlert("Error", "Please provide the email");
     }
+    (await loading).dismiss();
   }
 }
